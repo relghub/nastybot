@@ -9,10 +9,6 @@ nastea = commands.Bot(command_prefix = settings['prefix'])
 async def on_ready():
     print("eval)")
 
-@nastea.event
-async def on_message(self, msg):
-    print(msg)
-
 @nastea.command()
 async def hello(msg):
     author = msg.message.author
@@ -21,8 +17,11 @@ async def hello(msg):
 @nastea.command()
 async def say(msg, sayphr):
     channel = msg.channel
-    await channel.send(sayphr)
-    await msg.message.delete()
+    if msg.message.author.name == "prizmech" or "ncrvfan2005":
+        await channel.send(sayphr)
+        await msg.message.delete()
+    else:
+        await channel.send("вы не имеете права вы малолетка !!!")
 
 @nastea.command()
 async def ping(msg):
