@@ -58,14 +58,14 @@ async def invite(msg):
     await msg.channel.send(embed=embed)
 
 @nastea.command()
-async def kick(msg, uzir, why):
-    if uzir == None or uzir == msg.message.author:
+async def ban(msg, member:discord.User=None, why=None):
+    if member == None or member == msg.message.author:
         await msg.channel.send("ты ебан? нахуя ты себя банить хочешь?")
     if why == None:
         why = "уебанство!!!!"
     message = f"ты изгнан из интеллигентного клуба {msg.guild.name} за {why}"
-    await uzir.send(message)
-    await msg.guild.ban(uzir, reason=why)
-    await msg.channel.send(f"{uzir} вые**бан** отсюда !!!")
+    await member.send(message)
+    await msg.guild.ban(member, reason=why)
+    await msg.channel.send(f"{member} вые**бан** отсюда !!!")
 
 nastea.run(settings['token'])
