@@ -12,12 +12,10 @@ async def on_ready():
 @nastea.event
 async def on_command_error(msg, error):
     if isinstance(error, commands.MissingPermissions):
-        embed = discord.Embed(title="Ошибка", color=0xff4500)
-        embed.add_field(name=None,value="Вы не имеете необходимых разрешений для выполнения этой команды.",inline=False)
+        embed = discord.Embed(title="Ошибка", color=0xff4500, description="Вы не имеете необходимых разрешений для выполнения этой команды.")
         await msg.channel.send(embed=embed)
     if isinstance(error, commands.MissingRequiredArgument):
-        embed = discord.Embed(title="Ошибка", color=0xff4500)
-        embed.add_field(name=None,value="Вы предоставили не все необходимые аргументы для выполнения этой команды.",inline=False)
+        embed = discord.Embed(title="Ошибка", color=0xff4500, description="Вы предоставили не все необходимые аргументы для выполнения этой команды.")
         await msg.channel.send(embed=embed)
 
 @nastea.command()
@@ -72,12 +70,28 @@ async def invite(msg):
 @commands.has_permissions(ban_members = True)
 async def ban(msg, member:discord.User=None, why=None):
     if member == None or member == msg.message.author:
-        await msg.channel.send("Самодепортация из сервера не допускается.")
-    if why == None:
-        why = "уебанство!!!"
-    message = f"ты изгнан из интеллигентного клуба {msg.guild.name} за {why}"
-    await member.send(message)
-    await msg.guild.ban(member, reason=why)
-    print(f"{member} выебан отсюда !!!")
+        messega = discord.Embed(title="Ошибка", color=0xff4500, description=f"Самодепортация из сервера не допускается.")
+        await msg.channel.send(embed=messega)
+    else:
+        if why == None:
+            why = "уебанство!!!"
+        messega = discord.Embed(title="Сообщение", color=0xff4500, description=f"ты изгнан из интеллигентного клуба имени {msg.guild.name} за {why}")
+        await member.send(embed=messega)
+        await msg.guild.ban(member, reason=why)
+        print(f"{member} выебан отсюда !!!")
+
+@nastea.command()
+@commands.has_permissions(ban_members=True)
+async def unban(msg, member:discord.User=None, why=None):
+    if member == None or member == msg.message.author:
+       messega = discord.Embed(title="Ошибка", color=0xff4500, description=f"Вы и так не забанены!")
+       await msg.channel.send(embed=messega)
+    else:
+        await msg.guild.unban(member)
+        messega = discord.Embed(title="Успех", color=0xff4500, description=f"Пользователь {member} разбанен и имеет возможность присоединиться к серверу заново!")
+        print("хатова !!!")
+        await msg.channel.send(embed=messega)
+        messega = discord.Embed(title="Сообщение", color=0xff4500, description=f"я успокоился можешь возвращаться")
+        await member.send(embed=messega)
 
 nastea.run(settings['token'])
