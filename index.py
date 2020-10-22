@@ -57,4 +57,15 @@ async def invite(msg):
     embed.add_field(name="Дебаг-сервер бота", value="[Ссылка](https://discord.gg/pjrtRpc)", inline=False)
     await msg.channel.send(embed=embed)
 
+@nastea.command()
+async def kick(msg, uzir, why):
+    if uzir == None or uzir == msg.message.author:
+        await msg.channel.send("ты ебан? нахуя ты себя банить хочешь?")
+    if why == None:
+        why = "уебанство!!!!"
+    message = f"ты изгнан из интеллигентного клуба {msg.guild.name} за {why}"
+    await uzir.send(message)
+    await msg.guild.ban(uzir, reason=why)
+    await msg.channel.send(f"{uzir} вые**бан** отсюда !!!")
+
 nastea.run(settings['token'])
