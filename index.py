@@ -75,10 +75,24 @@ async def ban(msg, member:discord.User=None, why=None):
     else:
         if why == None:
             why = "уебанство!!!"
-        messega = discord.Embed(title="Сообщение", color=0xff4500, description=f"ты изгнан из интеллигентного клуба имени {msg.guild.name} за {why}")
+        messega = discord.Embed(title="Сообщение", color=0xff4500, description=f"ты выебан из интеллигентного клуба имени {msg.guild.name} за {why}!! и больше туда не возвращайся !!!")
         await member.send(embed=messega)
         await msg.guild.ban(member, reason=why)
         print(f"{member} выебан отсюда !!!")
+
+@nastea.command()
+@commands.has_permissions(kick_members = True)
+async def kick(msg, member:discord.User=None, why=None):
+    if member == None or member == msg.message.author:
+        messega = discord.Embed(title="Ошибка", color=0xff4500, description=f"Самоизгнание из сервера не допускается.")
+        await msg.channel.send(embed=messega)
+    else:
+        if why == None:
+            why = "уебанство!!!"
+        messega = discord.Embed(title="Сообщение", color=0xff4500, description=f"ты изгнан из интеллигентного клуба имени {msg.guild.name} за {why}")
+        await member.send(embed=messega)
+        await msg.guild.kick(member, reason=why)
+        print(f"{member} выпизжен отсюда !!!")
 
 @nastea.command()
 @commands.has_permissions(ban_members=True)
