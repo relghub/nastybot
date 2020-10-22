@@ -9,6 +9,17 @@ nastea = commands.Bot(command_prefix = settings['prefix'])
 async def on_ready():
     print("eval)")
 
+@nastea.event
+async def on_command_error(msg, error):
+    if isinstance(error, commands.MissingPermissions):
+        embed = discord.Embed(title="Ошибка", color=0xff4500)
+        embed.add_field(name=None,value="Вы не имеете необходимых разрешений для выполнения этой команды.",inline=False)
+        await msg.channel.send(embed=embed)
+    if isinstance(error, commands.MissingRequiredArgument):
+        embed = discord.Embed(title="Ошибка", color=0xff4500)
+        embed.add_field(name=None,value="Вы предоставили не все необходимые аргументы для выполнения этой команды.",inline=False)
+        await msg.channel.send(embed=embed)
+
 @nastea.command()
 async def hello(msg):
     author = msg.message.author
@@ -58,14 +69,15 @@ async def invite(msg):
     await msg.channel.send(embed=embed)
 
 @nastea.command()
+@commands.has_permissions(ban_members = True)
 async def ban(msg, member:discord.User=None, why=None):
     if member == None or member == msg.message.author:
-        await msg.channel.send("ты ебан? нахуя ты себя банить хочешь?")
+        await msg.channel.send("Самодепортация из сервера не допускается.")
     if why == None:
-        why = "уебанство!!!!"
+        why = "уебанство!!!"
     message = f"ты изгнан из интеллигентного клуба {msg.guild.name} за {why}"
     await member.send(message)
     await msg.guild.ban(member, reason=why)
-    await msg.channel.send(f"{member} вые**бан** отсюда !!!")
+    print(f"{member} выебан отсюда !!!")
 
 nastea.run(settings['token'])
