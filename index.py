@@ -1,7 +1,10 @@
 import discord
+import time
+import asyncio
 from random import choice
 from discord.ext import commands
 from config import settings
+
  
 nastea = commands.Bot(command_prefix = settings['prefix'])
 
@@ -96,7 +99,7 @@ async def kick(msg, member:discord.User=None, why=None):
 
 @nastea.command()
 @commands.has_permissions(ban_members=True)
-async def unban(msg, member:discord.User=None, why=None):
+async def unban(msg, member:discord.User=None):
     if member == None or member == msg.message.author:
        messega = discord.Embed(title="Ошибка", color=0xff4500, description=f"Вы и так не забанены!")
        await msg.channel.send(embed=messega)
@@ -107,5 +110,15 @@ async def unban(msg, member:discord.User=None, why=None):
         await msg.channel.send(embed=messega)
         messega = discord.Embed(title="Сообщение", color=0xff4500, description=f"я успокоился можешь возвращаться")
         await member.send(embed=messega)
+
+@nastea.command()
+async def avatar(msg, user: discord.Member = None):
+    memberb = user or msg.author
+    link = memberb.avatar_url_as(size=2048, format='png')
+    print(link)
+    messega = discord.Embed(title=f"Аватар пользователя {memberb.name}", url=link, color=0xff4500)
+    messega.set_image(url=link)
+    messega.set_footer(text="Nasty.py. 2020.", icon_url='https://cdn.discordapp.com/avatars/721434688337477632/8fc51ec9395086d149c70cd3a1008d29.png')
+    await msg.channel.send(embed=messega)
 
 nastea.run(settings['token'])
