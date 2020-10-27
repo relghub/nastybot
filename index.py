@@ -16,9 +16,11 @@ async def on_ready():
 async def on_command_error(msg, error):
     if isinstance(error, commands.MissingPermissions):
         embed = discord.Embed(title="Ошибка", color=0xff4500, description="Вы не имеете необходимых разрешений для выполнения этой команды.")
+        embed.set_footer(text="Nasty.py. 2020.", icon_url='https://cdn.discordapp.com/avatars/721434688337477632/8fc51ec9395086d149c70cd3a1008d29.png')
         await msg.channel.send(embed=embed)
     if isinstance(error, commands.MissingRequiredArgument):
         embed = discord.Embed(title="Ошибка", color=0xff4500, description="Вы предоставили не все необходимые аргументы для выполнения этой команды.")
+        embed.set_footer(text="Nasty.py. 2020.", icon_url='https://cdn.discordapp.com/avatars/721434688337477632/8fc51ec9395086d149c70cd3a1008d29.png')
         await msg.channel.send(embed=embed)
 
 @nastea.command()
@@ -40,6 +42,7 @@ async def ping(msg):
     peng = round(nastea.latency*1000)
     embed = discord.Embed(title="Задержка (в мс)", color=0xff4500)
     embed.add_field(name="Клиент - сервер",value=peng, inline=False)
+    embed.set_footer(text="Nasty.py. 2020.", icon_url='https://cdn.discordapp.com/avatars/721434688337477632/8fc51ec9395086d149c70cd3a1008d29.png')
     await msg.channel.send(embed=embed)
 
 @nastea.command()
@@ -67,6 +70,7 @@ async def invite(msg):
     embed = discord.Embed(title="Ссылки", color=0xff4500)
     embed.add_field(name="Приглашение бота на сервер", value='[Ссылка](https://discord.com/api/oauth2/authorize?client_id=721434688337477632&permissions=1081601094&scope=bot)', inline=False)
     embed.add_field(name="Дебаг-сервер бота", value="[Ссылка](https://discord.gg/pjrtRpc)", inline=False)
+    embed.set_footer(text="Nasty.py. 2020.", icon_url='https://cdn.discordapp.com/avatars/721434688337477632/8fc51ec9395086d149c70cd3a1008d29.png')
     await msg.channel.send(embed=embed)
 
 @nastea.command()
@@ -74,11 +78,13 @@ async def invite(msg):
 async def ban(msg, member:discord.User=None, why=None):
     if member == None or member == msg.message.author:
         messega = discord.Embed(title="Ошибка", color=0xff4500, description=f"Самодепортация из сервера не допускается.")
+        messega.set_footer(text="Nasty.py. 2020.", icon_url='https://cdn.discordapp.com/avatars/721434688337477632/8fc51ec9395086d149c70cd3a1008d29.png')
         await msg.channel.send(embed=messega)
     else:
         if why == None:
             why = "уебанство!!!"
-        messega = discord.Embed(title="Сообщение", color=0xff4500, description=f"ты выебан из интеллигентного клуба имени {msg.guild.name} за {why}!! и больше туда не возвращайся !!!")
+        messega = discord.Embed(title="Сообщение", color=0xff4500, description=f"ты вые**бан** из интеллигентного клуба имени {msg.guild.name} за {why}!! и больше туда не возвращайся !!!")
+        messega.set_footer(text="Nasty.py. 2020.", icon_url='https://cdn.discordapp.com/avatars/721434688337477632/8fc51ec9395086d149c70cd3a1008d29.png')
         await member.send(embed=messega)
         await msg.guild.ban(member, reason=why)
         print(f"{member} выебан отсюда !!!")
@@ -88,11 +94,13 @@ async def ban(msg, member:discord.User=None, why=None):
 async def kick(msg, member:discord.User=None, why=None):
     if member == None or member == msg.message.author:
         messega = discord.Embed(title="Ошибка", color=0xff4500, description=f"Самоизгнание из сервера не допускается.")
+        messega.set_footer(text="Nasty.py. 2020.", icon_url='https://cdn.discordapp.com/avatars/721434688337477632/8fc51ec9395086d149c70cd3a1008d29.png')
         await msg.channel.send(embed=messega)
     else:
         if why == None:
             why = "уебанство!!!"
         messega = discord.Embed(title="Сообщение", color=0xff4500, description=f"ты изгнан из интеллигентного клуба имени {msg.guild.name} за {why}")
+        messega.set_footer(text="Nasty.py. 2020.", icon_url='https://cdn.discordapp.com/avatars/721434688337477632/8fc51ec9395086d149c70cd3a1008d29.png')
         await member.send(embed=messega)
         await msg.guild.kick(member, reason=why)
         print(f"{member} выпизжен отсюда !!!")
@@ -102,13 +110,16 @@ async def kick(msg, member:discord.User=None, why=None):
 async def unban(msg, member:discord.User=None):
     if member == None or member == msg.message.author:
        messega = discord.Embed(title="Ошибка", color=0xff4500, description=f"Вы и так не забанены!")
+       messega.set_footer(text="Nasty.py. 2020.", icon_url='https://cdn.discordapp.com/avatars/721434688337477632/8fc51ec9395086d149c70cd3a1008d29.png')
        await msg.channel.send(embed=messega)
     else:
         await msg.guild.unban(member)
         messega = discord.Embed(title="Успех", color=0xff4500, description=f"Пользователь {member} разбанен и имеет возможность присоединиться к серверу заново!")
+        messega.set_footer(text="Nasty.py. 2020.", icon_url='https://cdn.discordapp.com/avatars/721434688337477632/8fc51ec9395086d149c70cd3a1008d29.png')
         print("хатова !!!")
         await msg.channel.send(embed=messega)
         messega = discord.Embed(title="Сообщение", color=0xff4500, description=f"я успокоился можешь возвращаться")
+        messega.set_footer(text="Nasty.py. 2020.", icon_url='https://cdn.discordapp.com/avatars/721434688337477632/8fc51ec9395086d149c70cd3a1008d29.png')
         await member.send(embed=messega)
 
 @nastea.command()
