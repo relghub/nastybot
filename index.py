@@ -5,7 +5,8 @@ from random import choice
 from discord.ext import commands
 from config import settings
 
- 
+owner1_id = 460013300562919425
+owner2_id = 740267238271221773
 nastea = commands.Bot(command_prefix = settings['prefix'])
 
 @nastea.event
@@ -31,7 +32,7 @@ async def hello(msg):
 @nastea.command()
 async def say(msg, sayphr):
     channel = msg.channel
-    if msg.message.author.name == "prizmech" or "ncrvfan2005":
+    if msg.message.author.id == owner1_id or owner2_id:
         await channel.send(sayphr)
         await msg.message.delete()
     else:
