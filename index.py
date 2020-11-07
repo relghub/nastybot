@@ -124,9 +124,10 @@ async def unban(msg, member:discord.User=None):
         await member.send(embed=messega)
 
 @nastea.command()
-async def avatar(msg, user: discord.Member = None):
+async def avatar(msg, user:discord.Member=None):
     memberb = user or msg.author
-    link = memberb.avatar_url_as(size=2048, format='png')
+    link = memberb.avatar_url_as(size=2048, static_format='png')
+    print(link)
     messega = discord.Embed(title=f"Аватар пользователя **{memberb.name}**", color=0xff4500)
     messega.set_image(url=link)
     messega.set_footer(text="Nasty.py. 2020.", icon_url='https://cdn.discordapp.com/avatars/721434688337477632/8fc51ec9395086d149c70cd3a1008d29.png')
